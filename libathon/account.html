@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Campus Library</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+    <style>
+        
+    footer {
+    background-color: #212529; /* Dark but not pitch black */
+    color: #f8f9fa; /* Slightly off-white for softer contrast */
+    padding: 50px 0;
+}
+
+footer .container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+footer .col-md-4,
+footer .col-md-3,
+footer .col-md-2 {
+    flex: 1; /* Equal width for better alignment */
+    min-width: 250px; /* Prevents squeezing on smaller screens */
+}
+
+footer h5 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #ffcc00; /* Gold accent for visibility */
+}
+
+footer ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+footer ul li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+footer ul li a {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+footer ul li a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.2);
+    margin: 30px 0;
+}
+
+footer .text-center {
+    text-align: center;
+    font-size: 0.9rem;
+}
+    </style>
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Campus Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="digital.html">Digital Resources</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="account.html">My Account</a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <span class="text-white me-3">Welcome Niraj</span>
+                    <a href="index_before.html"><button class="btn btn-outline-light">Logout</button></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="text-white py-5" 
+     style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),url('./images/background.jpeg') no-repeat center center; 
+            background-size: cover; 
+            height: 200px;">
+    <div class="container">
+        <h1 class="display-4">My Library Account</h1>
+        <p class="lead">Manage your loans, holds, and account settings</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Quick Actions</h4>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary">Renew All Items</button>
+                            <button class="btn btn-outline-primary">View My Holds</button>
+                            <button class="btn btn-outline-primary"  id="trigger-gpay">Pay Fines</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <!-- Checked Out Items -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Currently Checked Out</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Data Science Fundamentals</td>
+                                    <td>Mar 5, 2025</td>
+                                    <td><span class="badge bg-success">On Time</span></td>
+                                    <td><button class="btn btn-sm btn-primary renew-btn">Renew</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Modern Web Development</td>
+                                    <td>Mar 8, 2025</td>
+                                    <td><span class="badge bg-success">On Time</span></td>
+                                    <td><button class="btn btn-sm btn-primary renew-btn">Renew</button></td>
+                                </tr>
+                                <tr>
+                                    <td>AI Ethics</td>
+                                    <td>Mar 1, 2025</td>
+                                    <td><span class="badge bg-warning text-dark">Due Soon</span></td>
+                                    <td><button class="btn btn-sm btn-primary renew-btn">Renew</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Holds -->
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Current Holds</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Position</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Machine Learning Basics</td>
+                                    <td><span class="badge bg-info">Ready for Pickup</span></td>
+                                    <td>-</td>
+                                    <td><button class="btn btn-sm btn-danger cancel-hold-btn">Cancel Hold</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Python Programming</td>
+                                    <td><span class="badge bg-secondary">In Queue</span></td>
+                                    <td>2 of 3</td>
+                                    <td><button class="btn btn-sm btn-danger cancel-hold-btn">Cancel Hold</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Feedback & Requests</h4>
+                                <nav>
+                                    <div class="nav nav-tabs mb-3" id="feedbackTabs" role="tablist">
+                                        <button class="nav-link active" id="book-request-tab" data-bs-toggle="tab" data-bs-target="#book-request" type="button" role="tab">Book Request</button>
+                                        <button class="nav-link" id="issue-report-tab" data-bs-toggle="tab" data-bs-target="#issue-report" type="button" role="tab">Report an Issue</button>
+                                        <button class="nav-link" id="general-feedback-tab" data-bs-toggle="tab" data-bs-target="#general-feedback" type="button" role="tab">General Feedback</button>
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="feedbackContent">
+                                    <!-- Book Request Form -->
+                                    <div class="tab-pane fade show active" id="book-request" role="tabpanel">
+                                        <form id="bookRequestForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">Book Title *</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Author(s)</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">ISBN (if known)</label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Why do you recommend this book?</label>
+                                                <textarea class="form-control" rows="3"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                                        </form>
+                                    </div>
+                
+                                    <!-- Issue Report Form -->
+                                    <div class="tab-pane fade" id="issue-report" role="tabpanel">
+                                        <form id="issueReportForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">Issue Type *</label>
+                                                <select class="form-select" required>
+                                                    <option value="">Select an issue type</option>
+                                                    <option value="technical">Technical Problem</option>
+                                                    <option value="facility">Facility Issue</option>
+                                                    <option value="service">Service Complaint</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Issue Description *</label>
+                                                <textarea class="form-control" rows="4" required></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Urgency Level</label>
+                                                <select class="form-select">
+                                                    <option value="low">Low</option>
+                                                    <option value="medium">Medium</option>
+                                                    <option value="high">High</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit Issue</button>
+                                        </form>
+                                    </div>
+                
+                                    <!-- General Feedback Form -->
+                                    <div class="tab-pane fade" id="general-feedback" role="tabpanel">
+                                        <form id="generalFeedbackForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">How satisfied are you with our library services?</label>
+                                                <div class="btn-group w-100" role="group">
+                                                    <input type="radio" class="btn-check" name="satisfaction" id="sat1" value="1">
+                                                    <label class="btn btn-outline-secondary" for="sat1">1</label>
+                                                    <input type="radio" class="btn-check" name="satisfaction" id="sat2" value="2">
+                                                    <label class="btn btn-outline-secondary" for="sat2">2</label>
+                                                    <input type="radio" class="btn-check" name="satisfaction" id="sat3" value="3">
+                                                    <label class="btn btn-outline-secondary" for="sat3">3</label>
+                                                    <input type="radio" class="btn-check" name="satisfaction" id="sat4" value="4">
+                                                    <label class="btn btn-outline-secondary" for="sat4">4</label>
+                                                    <input type="radio" class="btn-check" name="satisfaction" id="sat5" value="5">
+                                                    <label class="btn btn-outline-secondary" for="sat5">5</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">What did you like about our services?</label>
+                                                <textarea class="form-control" rows="3"></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">What could we improve?</label>
+                                                <textarea class="form-control" rows="3"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Settings -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Personal Information</h4>
+                        <form>
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control mb-2" id="email" value="john.doe@campus.edu">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-control mb-3" id="phone" value="(555) 123-4567">
+                            <button type="button" class="btn btn-primary" id="update-info">Update Info</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Campus Library</h5>
+                    <p>Your central hub for academic resources, research assistance, and collaborative learning spaces.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>Hours</h5>
+                    <ul class="list-unstyled">
+                        <li>Mon-Thu: 8am-10pm</li>
+                        <li>Fri: 8am-7pm</li>
+                        <li>Sat: 10am-6pm</li>
+                        <li>Sun: 12pm-8pm</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: library@campus.edu</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Location: Main Campus, Building 42</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Campus Library System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Renew book function
+            document.querySelectorAll(".renew-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let row = this.closest("tr");
+                    let dueDateCell = row.querySelector("td:nth-child(2)");
+                    let statusCell = row.querySelector("td:nth-child(3) span");
+
+                    let currentDate = new Date(dueDateCell.innerText);
+                    currentDate.setDate(currentDate.getDate() + 14); // Extend due date by 14 days
+                    
+                    dueDateCell.innerText = currentDate.toDateString();
+                    statusCell.classList.remove("bg-warning", "text-dark");
+                    statusCell.classList.add("bg-success");
+                    statusCell.innerText = "On Time";
+
+                    alert("Book renewed successfully!");
+                });
+            });
+
+            // Cancel hold function
+            document.querySelectorAll(".cancel-hold-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let row = this.closest("tr");
+                    row.remove();
+                    alert("Hold canceled successfully!");
+                });
+            });
+
+            // Update personal information
+            document.getElementById("update-info").addEventListener("click", function () {
+                let email = document.getElementById("email").value;
+                let phone = document.getElementById("phone").value;
+                
+                if (!email.includes("@") || phone.length < 10) {
+                    alert("Please enter a valid email and phone number.");
+                    return;
+                }
+
+                alert("Personal information updated successfully!");
+            });
+
+            // Logout function
+            document.getElementById("logout-btn").addEventListener("click", function () {
+                alert("Logging out...");
+                window.location.href = "login.html"; // Redirect to login page
+            });
+
+        });
+        
+    </script>
+    <!--<button id="google-pay-button"></button>-->
+
+   
+    <script>
+        let paymentsClient;
+
+        function onGooglePayLoaded() {
+            paymentsClient = new google.payments.api.PaymentsClient({ environment: 'TEST' }); // Change to 'PRODUCTION' for live payments
+        }
+
+        document.getElementById('trigger-gpay').addEventListener('click', function () {
+            if (!paymentsClient) {
+                alert('Google Pay is not loaded yet!');
+                return;
+            }
+
+            const paymentRequest = {
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                allowedPaymentMethods: [{
+                    type: 'CARD',
+                    parameters: {
+                        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                        allowedCardNetworks: ['VISA', 'MASTERCARD']
+                    },
+                    tokenizationSpecification: {
+                        type: 'PAYMENT_GATEWAY',
+                        parameters: {
+                            gateway: 'example',     
+                            gatewayMerchantId: 'exampleMerchantId'
+                        }
+                    }
+                }],
+                merchantInfo: {
+                    merchantId: 'BCR2DN4TJLWX7GIL', // Replace with your actual merchant ID
+                    merchantName: 'VIT Chennai Central Library'
+                },
+                transactionInfo: {
+                    totalPriceStatus: 'FINAL',
+                    totalPrice: '50.00', // Example amount
+                    currencyCode: 'INR'
+                }
+            };
+
+            paymentsClient.loadPaymentData(paymentRequest)
+                .then(paymentData => {
+                    console.log('Payment successful:', paymentData);
+                    alert('Payment successful!');
+                })
+                .catch(error => console.error('Payment failed:', error));
+        });
+    </script>
+
+    <script>
+            // Feedback System JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Form references
+    const bookRequestForm = document.getElementById('bookRequestForm');
+    const issueReportForm = document.getElementById('issueReportForm');
+    const generalFeedbackForm = document.getElementById('generalFeedbackForm');
+
+    // Toast notification function
+    function showToast(message, type = 'success') {
+        const toastContainer = document.createElement('div');
+        toastContainer.style.position = 'fixed';
+        toastContainer.style.top = '20px';
+        toastContainer.style.right = '20px';
+        toastContainer.style.zIndex = '1050';
+        
+        const toast = document.createElement('div');
+        toast.className = `toast show bg-${type} text-white`;
+        toast.setAttribute('role', 'alert');
+        toast.setAttribute('aria-live', 'assertive');
+        toast.setAttribute('aria-atomic', 'true');
+        
+        toast.innerHTML = `
+            <div class="toast-header bg-${type} text-white">
+                <strong class="me-auto">Library Notification</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                ${message}
+            </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        document.body.appendChild(toastContainer);
+        
+        // Remove toast after 5 seconds
+        setTimeout(() => {
+            toastContainer.remove();
+        }, 5000);
+    }
+
+    // Form validation helper
+    function validateForm(formData) {
+        let isValid = true;
+        let errorMessage = '';
+
+        formData.forEach((value, key) => {
+            if (!value && key !== 'isbn') {  // ISBN is optional
+                isValid = false;
+                errorMessage = 'Please fill in all required fields.';
+            }
+        });
+
+        return { isValid, errorMessage };
+    }
+
+    // Handle Book Request Form
+    bookRequestForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(bookRequestForm);
+        const validation = validateForm(formData);
+
+        if (!validation.isValid) {
+            showToast(validation.errorMessage, 'danger');
+            return;
+        }
+
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Success handling
+            showToast('Book request submitted successfully!');
+            bookRequestForm.reset();
+        } catch (error) {
+            showToast('Error submitting book request. Please try again.', 'danger');
+        }
+    });
+
+    // Handle Issue Report Form
+    issueReportForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(issueReportForm);
+        const validation = validateForm(formData);
+
+        if (!validation.isValid) {
+            showToast(validation.errorMessage, 'danger');
+            return;
+        }
+
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Success handling
+            showToast('Issue report submitted successfully!');
+            issueReportForm.reset();
+        } catch (error) {
+            showToast('Error submitting issue report. Please try again.', 'danger');
+        }
+    });
+
+    // Handle General Feedback Form
+    generalFeedbackForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(generalFeedbackForm);
+        const satisfaction = formData.get('satisfaction');
+
+        if (!satisfaction) {
+            showToast('Please select a satisfaction rating.', 'danger');
+            return;
+        }
+
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Success handling
+            showToast('Thank you for your feedback!');
+            generalFeedbackForm.reset();
+        } catch (error) {
+            showToast('Error submitting feedback. Please try again.', 'danger');
+        }
+    });
+
+    // Real-time character count for textareas
+    document.querySelectorAll('textarea').forEach(textarea => {
+        const maxLength = 500;
+        textarea.maxLength = maxLength;
+        
+        // Create character counter
+        const counter = document.createElement('small');
+        counter.className = 'text-muted';
+        textarea.parentNode.appendChild(counter);
+        
+        // Update counter
+        function updateCounter() {
+            const remaining = maxLength - textarea.value.length;
+            counter.textContent = `${remaining} characters remaining`;
+        }
+        
+        textarea.addEventListener('input', updateCounter);
+        updateCounter(); // Initial count
+    });
+
+    // Add loading state to submit buttons
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', e => {
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            submitButton.disabled = true;
+            submitButton.innerHTML = `
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Submitting...
+            `;
+            
+            // Reset button after submission (successful or not)
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }, 1000);
+        });
+    });
+
+    // Add form autosave functionality
+    const forms = [bookRequestForm, issueReportForm, generalFeedbackForm];
+    forms.forEach(form => {
+        // Load saved data
+        const savedData = localStorage.getItem(`${form.id}_draft`);
+        if (savedData) {
+            const formData = JSON.parse(savedData);
+            Object.entries(formData).forEach(([key, value]) => {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) input.value = value;
+            });
+        }
+
+        // Save form data as draft
+        form.addEventListener('input', (e) => {
+            const formData = Object.fromEntries(new FormData(form));
+            localStorage.setItem(`${form.id}_draft`, JSON.stringify(formData));
+        });
+
+        // Clear saved data on successful submission
+        form.addEventListener('submit', () => {
+            localStorage.removeItem(`${form.id}_draft`);
+        });
+    });
+});
+        </script>
+
+</body>
+</html>

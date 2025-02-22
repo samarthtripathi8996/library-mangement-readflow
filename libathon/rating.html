@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System - Student Ratings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo h1 {
+            font-size: 22px;
+        }
+        
+        .menu {
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            background-color: var(--secondary);
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            display: flex;
+            background-color: white;
+            border-radius: 4px;
+            padding: 8px 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            width: 300px;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .rating-stars {
+            color: #f1c40f;
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        
+        .rating-number {
+            font-weight: bold;
+            padding-left: 5px;
+        }
+        
+        .rating-excellent { color: var(--success); }
+        .rating-good { color: #27ae60; }
+        .rating-average { color: var(--warning); }
+        .rating-poor { color: #e67e22; }
+        .rating-bad { color: var(--danger); }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status.active { background-color: rgba(46, 204, 113, 0.2); color: var(--success); }
+        .status.warning { background-color: rgba(243, 156, 18, 0.2); color: var(--warning); }
+        .status.overdue { background-color: rgba(231, 76, 60, 0.2); color: var(--danger); }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 8px;
+            width: 500px;
+            max-width: 90%;
+            padding: 30px;
+            position: relative;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Library Admin</h1>
+        </div>
+        <div class="menu">
+            <a href="dashboard.html">
+                <div class="menu-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </div>
+            </a>
+            <a href="admin_books.html">
+                <div class="menu-item">
+                    <i class="fas fa-book"></i>
+                    <span>Books</span>
+                </div>
+            </a>
+            <a href="admin_mem.html">
+                <div class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Members</span>
+                </div>
+            </a>
+            <a href="rating.html"><div class="menu-item active">
+                <i class="fas fa-star"></i>
+                <span>Student Ratings</span>
+            </div>
+            </a>
+            <a href="report.html"><div class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Reports</span>
+            </div>
+            </a>
+            <a href="setting.html"><div class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="search-box">
+                <i class="fas fa-search" style="color: #7f8c8d; margin-right: 10px;"></i>
+                <input type="text" placeholder="Search students..." id="searchInput">
+            </div>
+            <button class="btn btn-primary" id="addRatingBtn">
+                <i class="fas fa-plus"></i> Add New Rating
+            </button>
+        </div>
+
+        <table id="ratingsTable">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Student ID</th>
+                    <th>Current Rating</th>
+                    <th>Total Books Borrowed</th>
+                    <th>Return History</th>
+                    <th>Last Rating Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table content will be dynamically populated -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add/Edit Rating Modal -->
+    <div class="modal-overlay" id="ratingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Student Rating</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="ratingForm">
+                    <div class="form-group">
+                        <label class="form-label">Student Name</label>
+                        <input type="text" class="form-control" id="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Student ID</label>
+                        <input type="text" class="form-control" id="studentId" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Rating</label>
+                        <div class="rating-select">
+                            <div class="stars">
+                                <i class="fas fa-star" data-rating="1"></i>
+                                <i class="fas fa-star" data-rating="2"></i>
+                                <i class="fas fa-star" data-rating="3"></i>
+                                <i class="fas fa-star" data-rating="4"></i>
+                                <i class="fas fa-star" data-rating="5"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Comments</label>
+                        <textarea class="form-control" id="comments"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit Rating</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class RatingSystem {
+            constructor() {
+                this.students = [];
+                this.initializeEventListeners();
+                this.loadMockData();
+            }
+
+            initializeEventListeners() {
+                const addRatingBtn = document.getElementById('addRatingBtn');
+                const modal = document.getElementById('ratingModal');
+                const modalClose = document.querySelector('.modal-close');
+                const ratingForm = document.getElementById('ratingForm');
+                const searchInput = document.getElementById('searchInput');
+
+                addRatingBtn.addEventListener('click', () => this.toggleModal());
+                modalClose.addEventListener('click', () => this.toggleModal());
+                ratingForm.addEventListener('submit', (e) => this.handleRatingSubmission(e));
+                searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+
+                // Star rating functionality
+                const stars = document.querySelectorAll('.stars i');
+                stars.forEach(star => {
+                    star.addEventListener('click', () => this.handleStarRating(star));
+                });
+            }
+
+            toggleModal() {
+                const modal = document.getElementById('ratingModal');
+                modal.classList.toggle('active');
+                if (!modal.classList.contains('active')) {
+                    document.getElementById('ratingForm').reset();
+                    this.resetStarRating();
+                }
+            }
+
+            handleStarRating(clickedStar) {
+                const rating = clickedStar.getAttribute('data-rating');
+                const stars = document.querySelectorAll('.stars i');
+                stars.forEach(star => {
+                    const starRating = star.getAttribute('data-rating');
+                    star.style.color = starRating <= rating ? '#f1c40f' : '#ddd';
+                });
+            }
+
+            resetStarRating() {
+                const stars = document.querySelectorAll('.stars i');
+                stars.forEach(star => star.style.color = '#ddd');
+            }
+
+            handleRatingSubmission(e) {
+                e.preventDefault();
+                const formData = {
+                    name: document.getElementById('studentName').value,
+                    id: document.getElementById('studentId').value,
+                    rating: this.getSelectedRating(),
+                    comments: document.getElementById('comments').value,
+                    date: new Date().toLocaleDateString()
+                };
+
+                this.addRating(formData);
+                this.toggleModal();
+                this.showSuccessMessage('Rating added successfully!');
+            }
+
+            getSelectedRating() {
+                const stars = document.querySelectorAll('.stars i');
+                let rating = 0;
+                stars.forEach(star => {
+                    if (star.style.color === 'rgb(241, 196, 15)') {
+                        rating = parseInt(star.getAttribute('data-rating'));
+                    }
+                });
+                return rating;
+            }
+
+            addRating(data) {
+                const studentIndex = this.students.findIndex(s => s.id === data.id);
+                if (studentIndex === -1) {
+                    // New student
+                    this.students.push({
+                        name: data.name,
+                        id: data.id,
+                        rating: data.rating,
+                        totalBooks: Math.floor(Math.random() * 10) + 1,
+                        returnHistory: '100%',
+                        lastRatingDate: data.date,
+                        status: 'Active'
+                    });
+                } else {
+                    // Update existing student
+                    this.students[studentIndex].rating = data.rating;
+                    this.students[studentIndex].lastRatingDate = data.date;
+                }
+                this.updateTable();
+            }
+
+            handleSearch(query) {
+                const filteredStudents = this.students.filter(student => 
+                    student.name.toLowerCase().includes(query.toLowerCase()) ||
+                    student.id.toLowerCase().includes(query.toLowerCase())
+                );
+                this.updateTable(filteredStudents);
+            }
+
+            loadMockData() {
+    this.students = [
+        {
+            name: "Emily Johnson",
+            id: "STU001",
+            rating: 5,
+            totalBooks: 15,
+            returnHistory: "98%",
+            lastRatingDate: "2025-02-15",
+            status: "Active"
+        },
+        {
+            name: "Michael Chen",
+            id: "STU002",
+            rating: 4,
+            totalBooks: 8,
+            returnHistory: "100%",
+            lastRatingDate: "2025-02-14",
+            status: "Active"
+        },
+        {
+            name: "Sarah Williams",
+            id: "STU003",
+            rating: 3,
+            totalBooks: 12,
+            returnHistory: "95%",
+            lastRatingDate: "2025-02-10",
+            status: "Warning"
+        },
+        {
+            name: "James Wilson",
+            id: "STU004",
+            rating: 5,
+            totalBooks: 20,
+            returnHistory: "100%",
+            lastRatingDate: "2025-02-18",
+            status: "Active"
+        },
+        {
+            name: "Maria Garcia",
+            id: "STU005",
+            rating: 2,
+            totalBooks: 5,
+            returnHistory: "85%",
+            lastRatingDate: "2025-02-08",
+            status: "Overdue"
+        }
+    ];
+    this.updateTable();
+}
+
+updateTable(studentsToShow = this.students) {
+    const tableBody = document.querySelector('#ratingsTable tbody');
+    tableBody.innerHTML = '';
+
+    studentsToShow.forEach(student => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${student.name}</td>
+            <td>${student.id}</td>
+            <td>
+                <div class="rating">
+                    <div class="rating-stars">
+                        ${this.generateStars(student.rating)}
+                    </div>
+                    <span class="rating-number ${this.getRatingClass(student.rating)}">${student.rating}.0</span>
+                </div>
+            </td>
+            <td>${student.totalBooks}</td>
+            <td>${student.returnHistory}</td>
+            <td>${student.lastRatingDate}</td>
+            <td><span class="status ${student.status.toLowerCase()}">${student.status}</span></td>
+            <td>
+                <button class="btn btn-primary" onclick="ratingSystem.editRating('${student.id}')">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+generateStars(rating) {
+    return Array(5).fill(0).map((_, index) => 
+        `<i class="fas fa-star" style="color: ${index < rating ? '#f1c40f' : '#ddd'}"></i>`
+    ).join('');
+}
+
+getRatingClass(rating) {
+    if (rating === 5) return 'rating-excellent';
+    if (rating === 4) return 'rating-good';
+    if (rating === 3) return 'rating-average';
+    if (rating === 2) return 'rating-poor';
+    return 'rating-bad';
+}
+
+editRating(studentId) {
+    const student = this.students.find(s => s.id === studentId);
+    if (!student) return;
+
+    document.getElementById('studentName').value = student.name;
+    document.getElementById('studentId').value = student.id;
+    document.getElementById('comments').value = '';
+    
+    // Set the stars
+    const stars = document.querySelectorAll('.stars i');
+    stars.forEach(star => {
+        const rating = parseInt(star.getAttribute('data-rating'));
+        star.style.color = rating <= student.rating ? '#f1c40f' : '#ddd';
+    });
+
+    this.toggleModal();
+}
+
+showSuccessMessage(message) {
+    // Create and show a temporary success message
+    const messageDiv = document.createElement('div');
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--success);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 4px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s;
+    `;
+    messageDiv.textContent = message;
+    document.body.appendChild(messageDiv);
+
+    // Fade in
+    setTimeout(() => messageDiv.style.opacity = '1', 100);
+    
+    // Fade out and remove
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        setTimeout(() => messageDiv.remove(), 300);
+    }, 3000);
+}
+}
+
+// Initialize the rating system
+const ratingSystem = new RatingSystem();
+</script>
+</body>
+</html>

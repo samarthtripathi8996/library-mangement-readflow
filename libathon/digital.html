@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Resources - Campus Library</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .resource-card {
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        footer {
+    background-color: #212529; /* Dark but not pitch black */
+    color: #f8f9fa; /* Slightly off-white for softer contrast */
+    padding: 50px 0;
+}
+
+footer .container {
+    max-width: 1100px;
+    
+    margin: auto;
+}
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+footer .col-md-4,
+footer .col-md-3,
+footer .col-md-2 {
+    flex: 1; /* Equal width for better alignment */
+    min-width: 250px; /* Prevents squeezing on smaller screens */
+}
+
+footer h5 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #ffcc00; /* Gold accent for visibility */
+}
+
+footer ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+footer ul li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+footer ul li a {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+footer ul li a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.2);
+    margin: 30px 0;
+}
+
+footer .text-center {
+    text-align: center;
+    font-size: 0.9rem;
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Campus Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="digital.html">Digital Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="account.html">My Account</a></li>
+                </ul>
+                <form class="d-flex">
+                    <!-- <input class="form-control me-2" type="search" placeholder="Search books, journals..." aria-label="Search"> -->
+                    <!-- <a href="search.html"><button class="btn btn-outline-light" type="submit">Search</button></a> -->
+                    <a href="search.html" class="btn btn-outline-light">Search</a>
+                </form>
+                <div class="ms-3">
+                    <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginche" onclick="href='index.html'">Login</button>-->
+                    <!-- <button class="btn btn-primary" onclick="window.location.href='login_skeleton.html'">Login</button> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+
+    <!-- Header Section -->
+    <div class="bg-primary text-white py-5" 
+     style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url('./images/dig_img.jpeg') no-repeat center center; 
+            background-size: cover; 
+            min-height: 300px;">
+    <div class="container">
+        <h1 class="display-4">Digital Resources</h1>
+        <p class="lead">Access our extensive collection of online academic resources</p>
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- Featured Resources -->
+        <section class="mb-5">
+            <h2 class="mb-4">Featured Resources</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card resource-card">
+                        <div class="card-body">
+                            <h4>JSTOR</h4>
+                            <p>Access to academic journals, books, and primary sources across multiple disciplines.</p>
+                            <a href="#" class="btn btn-primary">Access JSTOR</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card resource-card">
+                        <div class="card-body">
+                            <h4>Science Direct</h4>
+                            <p>Scientific, technical, and medical research platform with full-text articles.</p>
+                            <a href="#" class="btn btn-primary">Access Science Direct</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card resource-card">
+                        <div class="card-body">
+                            <h4>ProQuest</h4>
+                            <p>Dissertations, theses, and scholarly research across all subjects.</p>
+                            <a href="#" class="btn btn-primary">Access ProQuest</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resource Categories -->
+        <section class="mb-5">
+            <h2 class="mb-4">Resource Categories</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card resource-card">
+                        <div class="card-body">
+                            <h5>E-Books</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Academic E-Books</a></li>
+                                <li><a href="#">Textbooks</a></li>
+                                <li><a href="#">Reference Materials</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card resource-card">
+                        <div class="card-body">
+                            <h5>Journals</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Academic Journals</a></li>
+                                <li><a href="#">Research Papers</a></li>
+                                <li><a href="#">Conference Proceedings</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card resource-card">
+                        <div class="card-body">
+                            <h5>Databases</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Research Databases</a></li>
+                                <li><a href="#">Statistical Data</a></li>
+                                <li><a href="#">Citation Tools</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card resource-card">
+                        <div class="card-body">
+                            <h5>Media</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Video Collections</a></li>
+                                <li><a href="#">Audio Resources</a></li>
+                                <li><a href="#">Image Galleries</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Help Section -->
+        <section>
+            <div class="card">
+                <div class="card-body">
+                    <h2>Need Help?</h2>
+                    <p>Our librarians are available to help you find and use digital resources:</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>Chat Support</h5>
+                            <p>Available Mon-Fri, 9am-5pm</p>
+                            <button class="btn btn-outline-primary">Start Chat</button>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Email Support</h5>
+                            <p>Response within 24 hours</p>
+                            <button class="btn btn-outline-primary">Send Email</button>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Tutorial Videos</h5>
+                            <p>Learn how to use our resources</p>
+                            <button class="btn btn-outline-primary">Watch Tutorials</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Campus Library</h5>
+                    <p>Your central hub for academic resources, research assistance, and collaborative learning spaces.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>Hours</h5>
+                    <ul class="list-unstyled">
+                        <li>Mon-Thu: 8am-10pm</li>
+                        <li>Fri: 8am-7pm</li>
+                        <li>Sat: 10am-6pm</li>
+                        <li>Sun: 12pm-8pm</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: library@campus.edu</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Location: Main Campus, Building 42</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Campus Library System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

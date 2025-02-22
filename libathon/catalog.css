@@ -1,0 +1,230 @@
+.filter-sidebar {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+.book-card {
+    transition: transform 0.2s;
+}
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+h1, h2, h4 {
+    color: #007bff; /* Bootstrap primary color */
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40; /* Dark background */
+}
+
+.navbar .nav-link {
+    color: #ffffff;
+}
+
+.navbar .nav-link:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+.navbar .navbar-brand {
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(./images/lib.jpg);
+    background-size: cover;
+    color: white;
+    padding: 80px 0;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+}
+
+/* Advanced Search Panel */
+.card {
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Features Section */
+.feature-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card h4 {
+    font-weight: bold;
+}
+
+.feature-card .btn {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.feature-card .btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Book Card Styles */
+.book-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    width: 100%; /* Make the image take the full width of the card */
+    height: 400px; /* Set a fixed height for all images */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-footer .btn {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card-footer .btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Filter Sidebar */
+.filter-sidebar {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-sidebar h5 {
+    font-weight: bold;
+}
+
+/* Pagination Styles */
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link {
+    color: #007bff;
+}
+
+.pagination .page-link:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 0.5rem;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-footer .btn-primary {
+    background-color: #0056b3;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #212529; /* Dark but not pitch black */
+    color: #f8f9fa; /* Slightly off-white for softer contrast */
+    padding: 50px 0;
+}
+
+footer .container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+footer .col-md-4,
+footer .col-md-3,
+footer .col-md-2 {
+    flex: 1; /* Equal width for better alignment */
+    min-width: 250px; /* Prevents squeezing on smaller screens */
+}
+
+footer h5 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #ffcc00; /* Gold accent for visibility */
+}
+
+footer ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+footer ul li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+footer ul li a {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+footer ul li a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.2);
+    margin: 30px 0;
+}
+
+footer .text-center {
+    text-align: center;
+    font-size: 0.9rem;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1.1rem;
+    }
+}

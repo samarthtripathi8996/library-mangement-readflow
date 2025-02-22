@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Catalog - Campus Library System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Campus Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="digital.html">Digital Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="account.html">My Account</a></li>
+                </ul>
+                <form class="d-flex">
+                    <!-- <input class="form-control me-2" type="search" placeholder="Search books, journals..." aria-label="Search"> -->
+                    <!-- <a href="search.html"><button class="btn btn-outline-light" type="submit">Search</button></a> -->
+                    <a href="search.html" class="btn btn-outline-light">Search</a>
+                </form>
+                <div class="ms-3">
+                    <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginche" onclick="href='index.html'">Login</button>-->
+                    <!-- <button class="btn btn-primary" onclick="window.location.href='login_skeleton.html'">Login</button> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <h1 class="mb-4" style="color: black; font-family: 'Poppins', sans-serif; font-weight: bold; text-align: center;">
+            Book Catalog
+          </h1>
+        
+        <!-- Advanced Search Panel -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Advanced Search</h5>
+                <form class="row g-3">
+                    <div class="col-md-4">
+                        <label for="keywordSearch" class="form-label">Keywords</label>
+                        <input type="text" class="form-control" id="keywordSearch" placeholder="Title, author, subject...">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="departmentSelect" class="form-label">Department</label>
+                        <select class="form-select" id="departmentSelect">
+                            <option selected value="">All Departments</option>
+                            <option>Computer Science</option>
+                            <option>Engineering</option>
+                            <option>Business</option>
+                            <option>Psychology</option>
+                            <option>Literature</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="formatSelect" class="form-label">Material Type</label>
+                        <select class="form-select" id="formatSelect">
+                            <option selected value="">All Types</option>
+                            <option>Books</option>
+                            <option>E-Books</option>
+                            <option>Journals</option>
+                            <option>Articles</option>
+                            <option>Multimedia</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="availabilityFilter" class="form-label">Availability</label>
+                        <select class="form-select" id="availabilityFilter">
+                            <option selected value="">All</option>
+                            <option>Available Now</option>
+                            <option>Available Online</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <button type="reset" class="btn btn-outline-secondary">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-md-3">
+                <div class="filter-sidebar p-3">
+                    <h5>Refine Results</h5>
+                    <hr>
+                    
+                    <h6 class="mt-4">Publication Year</h6>
+                    <div class="mb-3">
+                        <label for="yearStart" class="form-label">From</label>
+                        <input type="number" class="form-control" id="yearStart" placeholder="2000">
+                    </div>
+                    <div class="mb-3">
+                        <label for="yearEnd" class="form-label">To</label>
+                        <input type="number" class="form-control" id="yearEnd" placeholder="2025">
+                    </div>
+                    
+                    <h6 class="mt-4">Author</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="author1">
+                        <label class="form-check-label" for="author1">Smith, John (42)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="author2">
+                        <label class="form-check-label" for="author2">Johnson, Robert (38)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="author3">
+                        <label class="form-check-label" for="author3">Williams, Sarah (29)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="author4">
+                        <label class="form-check-label" for="author4">Brown, David (23)</label>
+                    </div>
+                    <a href="#" class="small">Show more</a>
+                    
+                    <h6 class="mt-4">Subject</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="subject1">
+                        <label class="form-check-label" for="subject1">Computer Science (87)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="subject2">
+                        <label class="form-check-label" for="subject2">Artificial Intelligence (56)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="subject3">
+                        <label class="form-check-label" for="subject3">Data Structures (45)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="subject4">
+                        <label class="form-check-label" for="subject4">Algorithms (42)</label>
+                    </div>
+                    <a href="#" class="small">Show more</a>
+                    
+                    <h6 class="mt-4">Location</h6>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="location1">
+                        <label class="form-check-label" for="location1">Main Library (235)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="location2">
+                        <label class="form-check-label" for="location2">Science Wing (124)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="location3">
+                        <label class="form-check-label" for="location3">Digital Collection (98)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="location4">
+                        <label class="form-check-label" for="location4">Archive (45)</label>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button class="btn btn-sm btn-primary w-100">Apply Filters</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results -->
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <span class="text-muted">Showing 1-12 of 256 results</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="sortSelect" class="form-label me-2 mb-0">Sort by:</label>
+                        <select class="form-select form-select-sm" id="sortSelect" style="width: auto;">
+                            <option>Relevance</option>
+                            <option>Title A-Z</option>
+                            <option>Title Z-A</option>
+                            <option>Newest First</option>
+                            <option>Oldest First</option>
+                            <option>Most Popular</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row g-4">
+                    <!-- Book 1 -->
+                    <div class="col-md-4">
+                        <div class="card book-card h-100">
+                            <img src="./images/algo.jpeg" class="card-img-top" alt="Book cover">
+                            <div class="card-body">
+                                <h5 class="card-title">Introduction to Algorithms</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Cormen, Thomas H.</h6>
+                                <p class="card-text">A comprehensive introduction to the modern study of computer algorithms.</p>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-success me-2">Available</span>
+                                    <small class="text-muted">7 copies</small>
+                                </div>
+                                <p class="mb-1"><small>Call Number: CS.152.C67</small></p>
+                                <p><small>Location: Main Library, Floor 3</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-primary">Place Hold</button>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 2 -->
+                    <div class="col-md-4">
+                        <div class="card book-card h-100">
+                            <img src="./images/ai.jpeg" class="card-img-top" alt="Book cover">
+                            <div class="card-body">
+                                <h5 class="card-title">Artificial Intelligence: A Modern Approach</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Russell, Stuart J.</h6>
+                                <p class="card-text">The leading textbook in Artificial Intelligence, used in over 1400 universities.</p>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-warning text-dark me-2">Limited</span>
+                                    <small class="text-muted">2 copies</small>
+                                </div>
+                                <p class="mb-1"><small>Call Number: CS.361.R87</small></p>
+                                <p><small>Location: Science Wing, AI Section</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-primary">Place Hold</button>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 3 -->
+                    <div class="col-md-4">
+                        <div class="card book-card h-100">
+                            <img src="./images/code crafts.jpeg" class="card-img-top" alt="Book cover">
+                            <div class="card-body">
+                                <h5 class="card-title">Clean Code: A Handbook of Agile Software Craftsmanship</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Martin, Robert C.</h6>
+                                <p class="card-text">A must-read for any developer, software engineer, or programmer.</p>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-danger me-2">Checked Out</span>
+                                    <small class="text-muted">Available Mar 5</small>
+                                </div>
+                                <p class="mb-1"><small>Call Number: QA76.76.C65</small></p>
+                                <p><small>Location: Main Library, Floor 2</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-primary">Join Waitlist</button>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 4 -->
+                    <div class="col-md-4">
+                        <div class="card book-card h-100">
+                            <img src="./images/database.jpeg" class="card-img-top" alt="Book cover">
+                            <div class="card-body">
+                                <h5 class="card-title">Database System Concepts</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Silberschatz, Abraham</h6>
+                                <p class="card-text">Comprehensive introduction to database systems with practical examples.</p>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-success me-2">Available</span>
+                                    <small class="text-muted">5 copies</small>
+                                </div>
+                                <p class="mb-1"><small>Call Number: QA76.9.D3</small></p>
+                                <p><small>Location: Science Wing</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-primary">Place Hold</button>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 5 -->
+                    <div class="col-md-4">
+                        <div class="card book-card h-100">
+                            <img src="./images/prag.jpeg" class="card-img-top" alt="Book cover">
+                            <div class="card-body">
+                                <h5 class="card-title">The Pragmatic Programmer</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Hunt, Andrew & Thomas, David</h6>
+                                <p class="card-text">Classic approaches to the art and science of software development.</p>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-info text-dark me-2">E-Book</span>
+                                    <small class="text-muted">Unlimited access</small>
+                                </div>
+                                <p class="mb-1"><small>Format: PDF, EPUB</small></p>
+                                <p><small>Location: Digital Collection</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-primary">Access Online</button>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 6 -->
+                    <div class="col-md-4">
+                        <div class="card book-card h-100">
+                            <img src="./images/dp.jpeg" class="card-img-top" alt="Book cover">
+                            <div class="card-body">
+                                <h5 class="card-title">Design Patterns: Elements of Reusable Object-Oriented Software</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Gamma, Erich et al.</h6>
+                                <p class="card-text">The seminal book on design patterns in software engineering.</p>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="badge bg-secondary me-2">Reserved</span>
+                                    <small class="text-muted">For CS401 course</small>
+                                </div>
+                                <p class="mb-1"><small>Call Number: QA76.64.G35</small></p>
+                                <p><small>Location: Course Reserves</small></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-sm btn-primary">Request Access</button>
+                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Catalog pagination" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (same as home page) -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Campus Library</h5>
+                    <p>Your central hub for academic resources, research assistance, and collaborative learning spaces.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>Hours</h5>
+                    <ul class="list-unstyled">
+                        <li>Mon-Thu: 8am-10pm</li>
+                        <li>Fri: 8am-7pm</li>
+                        <li>Sat: 10am-6pm</li>
+                        <li>Sun: 12pm-8pm</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: library@campus.edu</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Location: Main Campus, Building 42</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Campus Library System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="catalog.js"></script>
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Integration - Campus Library System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Campus Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="digital.html">Digital Resources</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="course.html">Course Integration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="account.html">My Account</a></li>
+                </ul>
+                <form class="d-flex">
+                    <a href="search.html" class="btn btn-outline-light">Search</a>
+                </form>
+                <div class="ms-3">
+                    <!-- <button class="btn btn-primary" onclick="window.location.href='login_skeleton.html'">Login</button> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 mb-4">Course Resource Center</h1>
+            <p class="lead mb-5">Find all the required and recommended readings for your courses</p>
+        </div>
+    </section>
+
+    <!-- Course Search Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-9">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <h3 class="card-title mb-4">Find Resources by Course</h3>
+                            <form id="courseSearchForm">
+                                <!-- Faculty/Discipline Selection -->
+                                <div class="mb-4">
+                                    <label for="facultySelect" class="form-label">Faculty/Discipline</label>
+                                    <select class="form-select" id="facultySelect" onchange="updateDegreePrograms()">
+                                        <option value="" selected disabled>Select your faculty</option>
+                                        <option value="engineering">Engineering</option>
+                                        <option value="arts">Arts</option>
+                                        <option value="commerce">Commerce</option>
+                                        <option value="science">Science</option>
+                                        <option value="medicine">Medicine</option>
+                                    </select>
+                                </div>
+
+                                <!-- Degree Program Selection (dynamically populated) -->
+                                <div class="mb-4" id="degreeProgramDiv" style="display: none;">
+                                    <label for="degreeSelect" class="form-label">Degree Program</label>
+                                    <select class="form-select" id="degreeSelect" disabled>
+                                        <option value="" selected disabled>First select a faculty</option>
+                                    </select>
+                                </div>
+
+                                <!-- Year Selection -->
+                                <div class="mb-4" id="yearDiv" style="display: none;">
+                                    <label for="yearSelect" class="form-label">Year</label>
+                                    <select class="form-select" id="yearSelect" onchange="updateSemesters()" disabled>
+                                        <option value="" selected disabled>First select a degree program</option>
+                                        <option value="1">First Year</option>
+                                        <option value="2">Second Year</option>
+                                        <option value="3">Third Year</option>
+                                        <option value="4">Fourth Year</option>
+                                    </select>
+                                </div>
+
+                                <!-- Semester Selection (dynamically populated) -->
+                                <div class="mb-4" id="semesterDiv" style="display: none;">
+                                    <label for="semesterSelect" class="form-label">Semester</label>
+                                    <select class="form-select" id="semesterSelect" disabled>
+                                        <option value="" selected disabled>First select a year</option>
+                                    </select>
+                                </div>
+
+                                <!-- Additional Optional Filters -->
+                                <div class="mb-4" id="additionalFilters" style="display: none;">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3">Additional Filters</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label for="instructor" class="form-label">Instructor</label>
+                                                    <input type="text" class="form-control" id="instructor" placeholder="e.g., Prof. Johnson">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="keyword" class="form-label">Keyword</label>
+                                                    <input type="text" class="form-control" id="keyword" placeholder="e.g., circuits, programming">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="resourceType" class="form-label">Resource Type</label>
+                                                    <select class="form-select" id="resourceType">
+                                                        <option value="all" selected>All Resources</option>
+                                                        <option value="textbooks">Textbooks</option>
+                                                        <option value="ebooks">E-Books</option>
+                                                        <option value="journals">Journals</option>
+                                                        <option value="courseReserves">Course Reserves</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="availability" class="form-label">Availability</label>
+                                                    <select class="form-select" id="availability">
+                                                        <option value="all" selected>All</option>
+                                                        <option value="available">Currently Available</option>
+                                                        <option value="digital">Digital Only</option>
+                                                        <option value="physical">Physical Only</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-4">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="toggleAdditionalFilters()">
+                                        <span id="filterButtonText">Show Additional Filters</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel ms-1" viewBox="0 0 16 16">
+                                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-lg" id="searchButton" onclick="searchCourses()" disabled>Find Resources</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Results Section (initially hidden) -->
+    <section class="py-5" id="searchResultsSection" style="display: none;">
+        <div class="container">
+            <h2 class="mb-4">Search Results</h2>
+            <div class="mb-4" id="searchCriteria">
+                <!-- Will be filled dynamically -->
+            </div>
+            
+            <div class="card mb-5">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">CS221: Data Structures and Algorithms</h4>
+                    <div class="d-flex flex-wrap mb-3">
+                        <span class="badge bg-primary me-2 mb-2">B.Tech in Computer Science</span>
+                        <span class="badge bg-secondary me-2 mb-2">Second Year</span>
+                        <span class="badge bg-info me-2 mb-2">4th Semester</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5>Required Textbooks:</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                            <div class="me-3">
+                                                <img src="./images/dsa.jpeg" alt="Book Cover" class="img-thumbnail" style="width: 200px; height: 300px;">
+                                            </div>
+                                            <div>
+                                                <h6 class="card-title">Data Structures and Algorithms in Java</h6>
+                                                <p class="card-text mb-1">By Robert Lafore</p>
+                                                <p class="card-text mb-2"><small class="text-muted">ISBN: 978-0133001631</small></p>
+                                                <span class="badge bg-success">Available: 7 copies</span>
+                                                <div class="mt-2">
+                                                    <button class="btn btn-sm btn-outline-primary">Place Hold</button>
+                                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                            <div class="me-3">
+                                                <img src="./images/jaaava.jpg" alt="Book Cover" class="img-thumbnail" style="width: 200px; height: 300px;">
+                                            </div>
+                                            <div>
+                                                <h6 class="card-title">Introduction to Algorithms</h6>
+                                                <p class="card-text mb-1">By Cormen, Leiserson, Rivest, and Stein</p>
+                                                <p class="card-text mb-2"><small class="text-muted">ISBN: 978-0262033848</small></p>
+                                                <span class="badge bg-warning text-dark">Limited: 2 copies</span>
+                                                <div class="mt-2">
+                                                    <button class="btn btn-sm btn-outline-primary">Place Hold</button>
+                                                    <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5>Digital Resources:</h5>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Algorithm Design & Analysis: Video Lectures</h6>
+                                    <small>Video Series</small>
+                                </div>
+                                <p class="mb-1">Complete lecture series covering advanced algorithm design techniques.</p>
+                                <small class="text-muted">Access: Online Streaming</small>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Data Structures Visualized</h6>
+                                    <small>Interactive Resource</small>
+                                </div>
+                                <p class="mb-1">Interactive visualizations of common data structures and algorithms.</p>
+                                <small class="text-muted">Access: Online</small>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Journal of Algorithms (Current Issue)</h6>
+                                    <small>Academic Journal</small>
+                                </div>
+                                <p class="mb-1">Latest research in algorithm design and analysis.</p>
+                                <small class="text-muted">Access: E-Journal Database</small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5>Course Reserves:</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Loan Period</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Algorithm Design Manual</td>
+                                        <td>Book</td>
+                                        <td><span class="badge bg-success">Available</span></td>
+                                        <td>3 hours</td>
+                                        <td><button class="btn btn-sm btn-primary">Reserve</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lecture Notes Package</td>
+                                        <td>Print Material</td>
+                                        <td><span class="badge bg-danger">Checked Out</span></td>
+                                        <td>2 hours</td>
+                                        <td><button class="btn btn-sm btn-secondary">Join Waitlist</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Practice Problem Sets</td>
+                                        <td>Print Material</td>
+                                        <td><span class="badge bg-success">Available</span></td>
+                                        <td>1 day</td>
+                                        <td><button class="btn btn-sm btn-primary">Reserve</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Courses (will be hidden when search results are shown) -->
+    <section class="py-5" id="featuredCoursesSection">
+        <div class="container">
+            <h2 class="text-center mb-5">Popular Courses This Term</h2>
+            <div class="row g-4">
+                <!-- CS101 Course -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="m-0">CS101: Introduction to Programming</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>Instructor:</strong> Prof. Emily Chen
+                            </div>
+                            <div class="mb-3">
+                                <strong>Resources:</strong> 
+                                <span class="badge bg-info">5 textbooks</span>
+                                <span class="badge bg-success">12 e-resources</span>
+                                <span class="badge bg-warning">3 course reserves</span>
+                            </div>
+                            <p>An introduction to programming and problem solving using Python. Covers fundamental programming concepts, data structures, and algorithms.</p>
+                            <div class="mt-4">
+                                <strong>Required Textbook:</strong>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="me-3">
+                                        <img src="./images/prog.jpeg" alt="CS101 Textbook" class="img-thumbnail" style="width: 380px; height: 230px;">
+                                    </div>
+                                    <div>
+                                        <p class="mb-1">Python Programming: An Introduction to Computer Science</p>
+                                        <p class="text-muted small mb-1">By John Zelle</p>
+                                        <span class="badge bg-success">Available: 12 copies</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-outline-primary w-100">View All Course Resources</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BIO220 Course -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="m-0">BIO220: Cell Biology</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>Instructor:</strong> Dr. Michael Patel
+                            </div>
+                            <div class="mb-3">
+                                <strong>Resources:</strong> 
+                                <span class="badge bg-info">3 textbooks</span>
+                                <span class="badge bg-success">8 e-resources</span>
+                                <span class="badge bg-warning">5 course reserves</span>
+                            </div>
+                            <p>A comprehensive study of cell structure and function. Examines cellular organelles, membrane dynamics, cell signaling, and the cell cycle.</p>
+                            <div class="mt-4">
+                                <strong>Required Textbook:</strong>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="me-3">
+                                        <img src="./images/bio.jpeg" alt="BIO220 Textbook" class="img-thumbnail">
+                                    </div>
+                                    <div>
+                                        <p class="mb-1">Molecular Biology of the Cell</p>
+                                        <p class="text-muted small mb-1">By Alberts et al.</p>
+                                        <span class="badge bg-warning">Limited: 3 copies</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-outline-success w-100">View All Course Resources</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ECON305 Course -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="m-0">ECON305: Macroeconomic Theory</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>Instructor:</strong> Prof. Sarah Johnson
+                            </div>
+                            <div class="mb-3">
+                                <strong>Resources:</strong> 
+                                <span class="badge bg-info">4 textbooks</span>
+                                <span class="badge bg-success">15 e-resources</span>
+                                <span class="badge bg-warning">2 course reserves</span>
+                            </div>
+                            <p>Advanced study of macroeconomic theory focusing on economic growth, business cycles, monetary policy, and fiscal policy.</p>
+                            <div class="mt-4">
+                                <strong>Required Textbook:</strong>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="me-3">
+                                        <img src="./images/ecoo.jpeg" alt="ECON305 Textbook" class="img-thumbnail">
+                                    </div>
+                                    <div>
+                                        <p class="mb-1">Macroeconomics, 10th Edition</p>
+                                        <p class="text-muted small mb-1">By Mankiw</p>
+                                        <span class="badge bg-danger">On Hold: Available Feb 28</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-outline-warning w-100">View All Course Resources</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-primary">Browse All Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Campus Library</h5>
+                    <p>Your central hub for academic resources, research assistance, and collaborative learning spaces.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>Hours</h5>
+                    <ul class="list-unstyled">
+                        <li>Mon-Thu: 8am-10pm</li>
+                        <li>Fri: 8am-7pm</li>
+                        <li>Sat: 10am-6pm</li>
+                        <li>Sun: 12pm-8pm</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: library@campus.edu</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Location: Main Campus, Building 42</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Campus Library System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Degree program data organized by faculty
+        const degreePrograms = {
+            engineering: [
+                "B.Tech in Computer Science",
+                "B.Tech in Electrical Engineering",
+                "B.Tech in Mechanical Engineering",
+                "B.Tech in Civil Engineering",
+                "B.Tech in Chemical Engineering",
+                "B.Tech in Electronics & Communication"
+            ],
+            arts: [
+                "Bachelor of Arts in English Literature",
+                "Bachelor of Arts in History",
+                "Bachelor of Arts in Philosophy",
+                "Bachelor of Fine Arts",
+                "Bachelor of Arts in Political Science",
+                "Bachelor of Arts in Sociology"
+            ],
+            commerce: [
+                "Bachelor of Commerce",
+                "Bachelor of Business Administration",
+                "Bachelor of Commerce in Accounting & Finance",
+                "Bachelor of Commerce in Banking & Insurance",
+                "Bachelor of Commerce in Financial Markets"
+            ],
+            science: [
+                "Bachelor of Science in Physics",
+                "Bachelor of Science in Chemistry",
+                "Bachelor of Science in Mathematics",
+                "Bachelor of Science in Biology",
+                "Bachelor of Science in Computer Science"
+            ],
+            medicine: [
+                "Bachelor of Medicine & Bachelor of Surgery (MBBS)",
+                "Bachelor of Dental Surgery",
+                "Bachelor of Pharmacy",
+                "Bachelor of Science in Nursing",
+                "Bachelor of Physiotherapy"
+            ]
+        };
+
+        // Function to update degree programs based on faculty selection
+        function updateDegreePrograms() {
+            const facultySelect = document.getElementById('facultySelect');
+            const degreeSelect = document.getElementById('degreeSelect');
+            const degreeProgramDiv = document.getElementById('degreeProgramDiv');
+            const yearDiv = document.getElementById('yearDiv');
+            const yearSelect = document.getElementById('yearSelect');
+            const semesterDiv = document.getElementById('semesterDiv');
+            const semesterSelect = document.getElementById('semesterSelect');
+            const searchButton = document.getElementById('searchButton');
+            
+            // Reset subsequent dropdowns
+            yearSelect.disabled = true;
+            yearSelect.selectedIndex = 0;
+            semesterSelect.disabled = true;
+            semesterSelect.selectedIndex = 0;
+            semesterDiv.style.display = 'none';
+            searchButton.disabled = true;
+            
+            // If no faculty is selected, hide degree program dropdown
+            if (!facultySelect.value) {
+                degreeProgramDiv.style.display = 'none';
+                yearDiv.style.display = 'none';
+                return;
+            }
+            
+            // Get programs for selected faculty
+            const programs = degreePrograms[facultySelect.value];
+            
+            // Clear existing options
+            degreeSelect.innerHTML = '<option value="" selected disabled>Select your degree program</option>';
+            
+            // Add new options
+            programs.forEach(program => {
+                const option = document.createElement('option');
+                option.value = program.toLowerCase().replace(/\s+/g, '-');
+                option.textContent = program;
+                degreeSelect.appendChild(option);
+            });
+            
+            // Enable and show degree program dropdown
+            degreeSelect.disabled = false;
+            degreeProgramDiv.style.display = 'block';
+            yearDiv.style.display = 'block';
+            yearSelect.disabled = false;
+        }
+
+        // Function to update semesters based on year selection
+        function updateSemesters() {
+            const yearSelect = document.getElementById('yearSelect');
+            const semesterSelect = document.getElementById('semesterSelect');
+            const semesterDiv = document.getElementById('semesterDiv');
+            const searchButton = document.getElementById('searchButton');
+            
+            // If no year is selected, hide semester dropdown
+            if (!yearSelect.value) {
+                semesterDiv.style.display = 'none';
+                searchButton.disabled = true;
+                return;
+            }
+            
+            // Clear existing options
+            semesterSelect.innerHTML = '<option value="" selected disabled>Select semester</option>';
+            
+            // Calculate semester options based on year
+            const year = parseInt(yearSelect.value);
+            const firstSemester = (year * 2) - 1;
+            const secondSemester = year * 2;
+            
+            // Add semester options
+            const option1 = document.createElement('option');
+            option1.value = firstSemester;
+            option1.textContent = `${getOrdinal(firstSemester)} Semester`;
+            semesterSelect.appendChild(option1);
+            
+            const option2 = document.createElement('option');
+            option2.value = secondSemester;
+            option2.textContent = `${getOrdinal(secondSemester)} Semester`;
+            semesterSelect.appendChild(option2);
+            
+            // Enable and show semester dropdown
+            semesterSelect.disabled = false;
+            semesterDiv.style.display = 'block';
+            searchButton.disabled = false;
+        }
+
+        // Helper function to get ordinal suffix
+        function getOrdinal(n) {
+            const suffixes = ['th', 'st', 'nd', 'rd'];
+            const v = n % 100;
+            return n + (suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0]);
+        }
+
+        // Toggle additional filters visibility
+        function toggleAdditionalFilters() {
+            const additionalFilters = document.getElementById('additionalFilters');
+            const filterButtonText = document.getElementById('filterButtonText');
+            
+            if (additionalFilters.style.display === 'none') {
+                additionalFilters.style.display = 'block';
+                filterButtonText.textContent = 'Hide Additional Filters';
+            } else {
+                additionalFilters.style.display = 'none';
+                filterButtonText.textContent = 'Show Additional Filters';
+            }
+        }
+
+        // Function to handle course search
+        function searchCourses() {
+            const facultySelect = document.getElementById('facultySelect');
+            const degreeSelect = document.getElementById('degreeSelect');
+            const yearSelect = document.getElementById('yearSelect');
+            const semesterSelect = document.getElementById('semesterSelect');
+            
+            // Validate required fields
+            if (!facultySelect.value || !yearSelect.value || !semesterSelect.value) {
+                alert('Please complete all required selections');
+                return;
+            }
+            
+            // In a real implementation, this would query a database
+            // For demo purposes, we'll just show the sample results section
+            
+            // Update search criteria summary
+            document.getElementById('searchCriteria').innerHTML = `
+                <div class="alert alert-primary">
+                    <h5 class="alert-heading mb-2">Search Criteria</h5>
+                    <p class="mb-1"><strong>Faculty:</strong> ${facultySelect.options[facultySelect.selectedIndex].text}</p>
+                    <p class="mb-1"><strong>Degree Program:</strong> ${degreeSelect.options[degreeSelect.selectedIndex].text}</p>
+                    <p class="mb-1"><strong>Year:</strong> ${yearSelect.options[yearSelect.selectedIndex].text}</p>
+                    <p class="mb-0"><strong>Semester:</strong> ${semesterSelect.options[semesterSelect.selectedIndex].text}</p>
+                </div>
+            `;
+            
+            // Hide featured courses, show search results
+            document.getElementById('featuredCoursesSection').style.display = 'none';
+            document.getElementById('searchResultsSection').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('searchResultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        // Initialize event listeners for degree select changes
+document.getElementById('degreeSelect').addEventListener('change', function() {
+    // Enable year selection when degree is selected
+    const yearSelect = document.getElementById('yearSelect');
+    yearSelect.disabled = false;
+    
+    // Reset subsequent selections
+    yearSelect.selectedIndex = 0;
+    document.getElementById('semesterSelect').disabled = true;
+    document.getElementById('semesterSelect').selectedIndex = 0;
+    document.getElementById('semesterDiv').style.display = 'none';
+    document.getElementById('searchButton').disabled = true;
+});
+
+// Initialize page state on load
+document.addEventListener('DOMContentLoaded', function() {
+    // Reset all form fields
+    document.getElementById('courseSearchForm').reset();
+    
+    // Hide search results section initially
+    document.getElementById('searchResultsSection').style.display = 'none';
+    
+    // Show featured courses section
+    document.getElementById('featuredCoursesSection').style.display = 'block';
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Library System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+   
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Campus Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="digital.html">Digital Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="account.html">My Account</a></li>
+                </ul>
+                <form class="d-flex">
+                    <!-- <input class="form-control me-2" type="search" placeholder="Search books, journals..." aria-label="Search"> -->
+                    <!-- <a href="search.html"><button class="btn btn-outline-light" type="submit">Search</button></a> -->
+                    <a href="search.html" class="btn btn-outline-light">Search</a>
+                </form>
+                <div class="ms-3">
+                    <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginche" onclick="href='index.html'">Login</button>-->
+                    <button class="btn btn-primary" onclick="window.location.href='login_skeleton.html'">Student Login</button>
+                    
+                    <button class="btn btn-primaryy" id="admin_button"
+        onclick="window.location.href='admin_login.html'" 
+        style="background-color: #168e3e; margin-left: 5px; border-color: #168e3e;">
+    Admin Login
+</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 id="campus_lib" class="display-4 mb-4">Welcome to Campus Library</h1>
+            <p class="lead mb-5">Your gateway to knowledge, resources, and collaborative spaces</p>
+            <div class="input-group mb-3 mx-auto" style="max-width: 600px;">
+                <!-- <input type="text" class="form-control form-control-lg" placeholder="Find books, journals, research papers..."> -->
+                <!-- <button class="btn btn-primary btn-lg" type="button">Search</button> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 niraj">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: black; font-family: 'Poppins', sans-serif;font-weight: bold;">
+                Library Services
+              </h2>
+            <div class="row g-4">
+                <!-- Book Availability -->
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-book text-primary" viewBox="0 0 16 16">
+                                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                                </svg>
+                            </div>
+                            <h4>Real-time Book Availability</h4>
+                            <p>Check if books are available, on hold, or when they'll be returned</p>
+                            <a href="catalog.html" class="btn btn-outline-primary mt-3">Check Availability</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seat Reservation -->
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-calendar-check text-primary" viewBox="0 0 16 16">
+                                    <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg>
+                            </div>
+                            <h4>Study Space Reservation</h4>
+                            <p>Reserve individual seats or group study rooms in advance</p>
+                            <a href="reservation.html" class="btn btn-outline-primary mt-3">Reserve Space</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Digital Resources -->
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-laptop text-primary" viewBox="0 0 16 16">
+                                    <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5z"/>
+                                </svg>
+                            </div>
+                            <h4>Digital Resources</h4>
+                            <p>Access e-books, journals, and research databases</p>
+                            <a href="digital.html" class="btn btn-outline-primary mt-3">Browse Digital Library</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Integration -->
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-journal-text text-primary" viewBox="0 0 16 16">
+                                    <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                </svg>
+                            </div>
+                            <h4>Course Integration</h4>
+                            <p>Find required and recommended readings for your courses</p>
+                            <a href="course.html" class="btn btn-outline-primary mt-3">Browse by Course</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recommendations -->
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-lightbulb text-primary" viewBox="0 0 16 16">
+                                    <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1z"/>
+                                </svg>
+                            </div>
+                            <h4>Resource Recommendations</h4>
+                            <p>Get personalized suggestions based on your courses and interests</p>
+                            <a href="#" class="btn btn-outline-primary mt-3">View Recommendations</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account Management -->
+                <div class="col-md-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center p-4">
+                            <div class="mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-person-circle text-primary" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                                </svg>
+                            </div>
+                            <h4>Account Management</h4>
+                            <p>Manage loans, renewals, holds, and receive due date notifications</p>
+                            <a href="account.html" class="btn btn-outline-primary mt-3">My Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Status Section -->
+    <section class="py-5" style="background-color:#71BBB2;">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: black; font-family: 'Poppins', sans-serif;font-weight: bold;">
+                Library Status
+              </h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Study Space Availability</h5>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                            </div>
+                            <p>35 out of 100 seats available</p>
+                            <small class="text-muted">Last updated: 10 minutes ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Group Study Rooms</h5>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                            </div>
+                            <p>3 out of 15 rooms available</p>
+                            <small class="text-muted">Last updated: 5 minutes ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Computer Workstations</h5>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                            </div>
+                            <p>5 out of 50 workstations available</p>
+                            <small class="text-muted">Last updated: 2 minutes ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Resources -->
+    <section class="py-5 popular">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: black; font-family: 'Poppins', sans-serif;font-weight: bold;">
+                Popular Resources
+              </h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/datascience.jpeg" class="card-img-top" alt="Book cover">
+                        <div class="card-body">
+                            <h5 class="card-title">Introduction to Data Science</h5>
+                            <p class="card-text">By J. Smith</p>
+                            <span class="badge bg-success">Available</span>
+                            <p class="mt-2"><small class="text-muted">5 copies available</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Place Hold</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/adveng.webp" class="card-img-top" alt="Book cover">
+                        <div class="card-body">
+                            <h5 class="card-title">Advanced Engineering Mathematics</h5>
+                            <p class="card-text">By R. Johnson</p>
+                            <span class="badge bg-warning text-dark">Limited</span>
+                            <p class="mt-2"><small class="text-muted">2 copies available</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Place Hold</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/eco.jpeg" class="card-img-top" alt="Book cover">
+                        <div class="card-body">
+                            <h5 class="card-title">Principles of Economics</h5>
+                            <p class="card-text">By L. Anderson</p>
+                            <span class="badge bg-danger">On Hold</span>
+                            <p class="mt-2"><small class="text-muted">Available on Feb 28</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Join Waitlist</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/psy.jpeg" class="card-img-top" alt="Book cover">
+                        <div class="card-body">
+                            <h5 class="card-title">Modern Psychology</h5>
+                            <p class="card-text">By T. Williams</p>
+                            <span class="badge bg-success">Available</span>
+                            <p class="mt-2"><small class="text-muted">8 copies available</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Place Hold</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login to Library System</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="studentId" class="form-label">Student ID</label>
+                            <input type="text" class="form-control" id="studentId">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Campus Library</h5>
+                    <p>Your central hub for academic resources, research assistance, and collaborative learning spaces.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>Hours</h5>
+                    <ul class="list-unstyled">
+                        <li>Mon-Thu: 8am-10pm</li>
+                        <li>Fri: 8am-7pm</li>
+                        <li>Sat: 10am-6pm</li>
+                        <li>Sun: 12pm-8pm</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: library@campus.edu</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Location: Main Campus, Building 42</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Campus Library System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations - Campus Library System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .space-card {
+            transition: transform 0.2s;
+            border: 1px solid #dee2e6;
+        }
+        .space-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .space-card.available {
+            border-left: 4px solid #28a745;
+        }
+        .space-card.limited {
+            border-left: 4px solid #ffc107;
+        }
+        .space-card.unavailable {
+            border-left: 4px solid #dc3545;
+        }
+        .time-slot {
+            border-radius: 4px;
+            padding: 6px 10px;
+            margin: 4px;
+            display: inline-block;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .time-slot.available {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+        }
+        .time-slot.available:hover {
+            background-color: #c8e6c9;
+        }
+        .time-slot.booked {
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Campus Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="digital.html">Digital Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="account.html">My Account</a></li>
+                </ul>
+                <form class="d-flex">
+                    <!-- <input class="form-control me-2" type="search" placeholder="Search books, journals..." aria-label="Search"> -->
+                    <!-- <a href="search.html"><button class="btn btn-outline-light" type="submit">Search</button></a> -->
+                    <a href="search.html" class="btn btn-outline-light">Search</a>
+                </form>
+                <div class="ms-3">
+                    <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginche" onclick="href='index.html'">Login</button>-->
+                    <!-- <button class="btn btn-primary" onclick="window.location.href='login_skeleton.html'">Login</button> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <h1 class="mb-4">Space Reservations</h1>
+        
+        <!-- Date Selector -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h5 class="card-title mb-0">Select Date & Time</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-md-end">
+                            <input type="date" class="form-control me-2" style="max-width: 200px;" value="2025-02-20">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-secondary">Today</button>
+                                <button type="button" class="btn btn-outline-secondary">Tomorrow</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Space Type Selection -->
+            <ul class="nav nav-tabs mb-4" id="spaceTypeTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="individual-tab" data-bs-toggle="tab" data-bs-target="#individual" type="button" role="tab" aria-controls="individual" aria-selected="true">Individual Study</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="group-tab" data-bs-toggle="tab" data-bs-target="#group" type="button" role="tab" aria-controls="group" aria-selected="false">Group Study Rooms</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="computer-tab" data-bs-toggle="tab" data-bs-target="#computer" type="button" role="tab" aria-controls="computer" aria-selected="false">Computer Workstations</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="quiet-tab" data-bs-toggle="tab" data-bs-target="#quiet" type="button" role="tab" aria-controls="quiet" aria-selected="false">Quiet Zone</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="spaceTypeTabContent">
+                <!-- Individual Study Spaces -->
+                <div class="tab-pane fade show active" id="individual" role="tabpanel" aria-labelledby="individual-tab">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h4>Individual Study Spaces</h4>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <label for="floorSelect" class="form-label me-2 mb-0">Floor:</label>
+                            <select class="form-select form-select-sm" id="floorSelect" style="width: auto;">
+                                <option value="1">Floor 1</option>
+                                <option value="2">Floor 2</option>
+                                <option value="3">Floor 3</option>
+                                <option value="4">Floor 4</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="row g-3" id="individualSpaces">
+                        <!-- Individual Study Space Cards will be populated here -->
+                         
+                    </div>
+                </div>
+    
+                <!-- Group Study Rooms Tab -->
+                <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h4>Group Study Rooms</h4>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <label class="form-label me-2 mb-0">Capacity:</label>
+                            <select class="form-select form-select-sm" id="capacitySelect" style="width: auto;">
+                                <option>Any Size</option>
+                                <option>2-4 People</option>
+                                <option>5-8 People</option>
+                                <option>9+ People</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="row g-3" id="groupSpaces">
+                        <!-- Group Study Room Cards will be populated here -->
+                    </div>
+                </div>
+    
+                <!-- Computer Workstations Tab -->
+<div class="tab-pane fade" id="computer" role="tabpanel" aria-labelledby="computer-tab">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h4>Computer Workstations</h4>
+        </div>
+        <div class="d-flex align-items-center">
+            <label class="form-label me-2 mb-0">Software:</label>
+            <select class="form-select form-select-sm" id="softwareSelect" style="width: auto;">
+                <option>All Software</option>
+                <option>Adobe Suite</option>
+                <option>AutoCAD</option>
+                <option>MATLAB</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row g-3" id="computerSpaces">
+        <!-- Computer Station Cards will be populated here -->
+        <div class="col-md-6">
+            <div class="card space-card available h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title">Design Station #3</h5>
+                            <span class="badge bg-success mb-2">Available</span>
+                        </div>
+                        <img src="./images/desk.png" alt="Computer station photo" class="rounded">
+                    </div>
+                    <p class="card-text">High-performance workstation with dual monitors. Complete software suite installed.</p>
+                    <div class="d-flex flex-wrap mt-3">
+                        <span class="badge bg-secondary me-2 mb-2">Dual Monitors</span>
+                        <span class="badge bg-secondary me-2 mb-2">Adobe Suite</span>
+                        <span class="badge bg-secondary me-2 mb-2">AutoCAD</span>
+                        <span class="badge bg-secondary me-2 mb-2">Ergonomic Setup</span>
+                    </div>
+                    <p class="mt-3 mb-2"><small>Location: Floor 1, Media Lab</small></p>
+                    
+                    <h6 class="mt-4 mb-2">Available Time Slots:</h6>
+                    <div class="d-flex flex-wrap">
+                        <span class="time-slot booked">8:00 AM - 10:00 AM</span>
+                        <span class="time-slot available">10:00 AM - 12:00 PM</span>
+                        <span class="time-slot available">12:00 PM - 2:00 PM</span>
+                        <span class="time-slot booked">2:00 PM - 4:00 PM</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <button class="btn btn-primary w-100">Reserve Station</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+                <!-- Quiet Zone Tab -->
+                <div class="tab-pane fade" id="quiet" role="tabpanel" aria-labelledby="quiet-tab">
+                    <div class="alert alert-info mb-4">
+                        <i class="bi bi-info-circle me-2"></i>
+                        The Quiet Zone is a silent study area. No conversations or phone calls allowed.
+                    </div>
+    
+                    <div class="row g-3">
+                        <!-- Quiet Zone Space -->
+                        <div class="col-md-6">
+                            <div class="card space-card limited h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title">Carrel #15</h5>
+                                            <span class="badge bg-warning mb-2">Limited Availability</span>
+                                        </div>
+                                        <img src="./images/desk.png" alt="Study carrel photo" class="rounded" style="width: 50px; height: auto;">
+                                    </div>
+                                    <p class="card-text">Private study carrel in silent zone. High privacy partitions and task lighting.</p>
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <span class="badge bg-secondary me-2 mb-2">Full Privacy</span>
+                                        <span class="badge bg-secondary me-2 mb-2">Task Light</span>
+                                        <span class="badge bg-secondary me-2 mb-2">Power Outlet</span>
+                                        <span class="badge bg-secondary me-2 mb-2">Bookshelf</span>
+                                    </div>
+                                    <p class="mt-3 mb-2"><small>Location: Floor 4, Quiet Zone</small></p>
+                                    
+                                    <h6 class="mt-4 mb-2">Available Time Slots:</h6>
+                                    <div class="d-flex flex-wrap">
+                                        <span class="time-slot booked">8:00 AM - 10:00 AM</span>
+                                        <span class="time-slot available">10:00 AM - 12:00 PM</span>
+                                        <span class="time-slot booked">12:00 PM - 2:00 PM</span>
+                                        <span class="time-slot available">2:00 PM - 4:00 PM</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <button class="btn btn-primary w-100">Reserve Carrel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Login to Campus Library</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="studentId" class="form-label">Student ID</label>
+                                <input type="text" class="form-control" id="studentId" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <a href="#" class="text-decoration-none">Forgot Password?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+        <script>
+            const floorDetails = {
+                1: {
+                    name: "First Floor - Main Level",
+                    description: "Media lab, computer stations, and casual study areas",
+                    individualSpaces: [
+                        { id: 'I1', title: 'Window Desk #12', status: 'Available', features: ['Power Outlet', 'Natural Light'], location: 'Floor 1, East Wing' },
+                        { id: 'I2', title: 'Corner Desk #8', status: 'Limited Availability', features: ['Privacy Partition', 'Ergonomic Chair'], location: 'Floor 1, West Wing' }
+                    ],
+                    groupSpaces: [
+                        { id: 'G1', title: 'Group Room A', status: 'Available', capacity: 6, location: 'Floor 1, North Wing' }
+                    ],
+                    computerStations: [
+                        { id: 'C1', title: 'Design Station #1', software: ['Adobe Suite'], available: true },
+                        { id: 'C2', title: 'Design Station #2', software: ['AutoCAD'], available: true },
+                        { id: 'C3', title: 'Design Station #3', software: ['Adobe Suite', 'AutoCAD'], available: true },
+                        { id: 'C4', title: 'Design Station #4', software: ['MATLAB'], available: false }
+                    ]
+                },
+                2: {
+                    name: "Second Floor - Collaborative Space",
+                    description: "Group study rooms and discussion areas",
+                    individualSpaces: [],
+                    groupSpaces: [
+                        { id: 'G2', title: 'Group Room B', status: 'Available', capacity: 8, location: 'Floor 2, North Wing' }
+                    ],
+                    computerStations: [] // Add computer stations if needed
+                },
+                3: {
+                    name: "Third Floor - Individual Study",
+                    description: "Window desks and individual workspaces",
+                    individualSpaces: [
+                        { id: 'I3', title: 'Window Desk #1', status: 'Available', features: ['Power Outlet', 'Natural Light'], location: 'Floor 3, East Wing' }
+                    ],
+                    groupSpaces: [],
+                    computerStations: [] // Add computer stations if needed
+                },
+                4: {
+                    name: "Fourth Floor - Quiet Zone",
+                    description: "Silent study area with private carrels",
+                    individualSpaces: [],
+                    groupSpaces: [],
+                    computerStations: [] // Add computer stations if needed
+                }
+            };
+        
+            function populateIndividualSpaces(floor) {
+                const individualSpacesContainer = document.getElementById('individualSpaces');
+                individualSpacesContainer.innerHTML = '';
+        
+                const spaces = floorDetails[floor].individualSpaces;
+                spaces.forEach(space => {
+                    individualSpacesContainer.innerHTML += `
+                        <div class="col-md-6">
+                            <div class="card space-card ${space.status === 'Available' ? 'available' : 'limited'} h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title">${space.title}</h5>
+                                            <span class="badge ${space.status === 'Available' ? 'bg-success' : 'bg-warning'} mb-2">${space.status}</span>
+                                        </div>
+                                        <img src="/api/placeholder/100/70" alt="Desk photo" class="rounded">
+                                    </div>
+                                    <p class="card-text">Location: ${space.location}</p>
+                                    <div class="d-flex flex-wrap mt-3">
+                                        ${space.features ? space.features.map(feature => `<span class="badge bg-secondary me-2 mb-2">${feature}</span>`).join('') : ''}
+                                    </div>
+                                    <button class="btn btn-primary w-100 mt-3" onclick="selectSeat('${space.id}')">Reserve Space</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        
+            function populateGroupSpaces(floor) {
+                const groupSpacesContainer = document.getElementById('groupSpaces');
+                groupSpacesContainer.innerHTML = '';
+        
+                const spaces = floorDetails[floor].groupSpaces;
+                spaces.forEach(space => {
+                    groupSpacesContainer.innerHTML += `
+                        <div class="col-md-6">
+                            <div class="card space-card ${space.status === 'Available' ? 'available' : 'limited'} h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title">${space.title}</h5>
+                                            <span class="badge ${space.status === 'Available' ? 'bg-success' : 'bg-warning'} mb-2">${space.status}</span>
+                                        </div>
+                                        <img src="/api/placeholder/100/70" alt="Room photo" class="rounded">
+                                    </div>
+                                    <p class="card-text">Location: ${space.location}</p>
+                                    <p class="card-text">Capacity: ${space.capacity} people</p>
+                                    <button class="btn btn-primary w-100 mt-3" onclick="selectGroupSpace('${space.id}')">Reserve Room</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        
+            function populateComputerSpaces() {
+                const computerSpacesContainer = document.getElementById('computerSpaces');
+                computerSpacesContainer.innerHTML = '';
+        
+                const stations = floorDetails[1].computerStations; // Change the floor index as needed
+                stations.forEach(station => {
+                    computerSpacesContainer.innerHTML += `
+                        <div class="col-md-6">
+                            <div class="card space-card ${station.available ? 'available' : 'unavailable'} h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title">${station.title}</h5>
+                                            <span class="badge ${station.available ? 'bg-success' : 'bg-danger'} mb-2">${station.available ? 'Available' : 'Unavailable'}</span>
+                                        </div>
+                                        <img src="/api/placeholder/100/70" alt="Computer station photo" class="rounded">
+                                    </div>
+                                    <p class="card-text">High-performance workstation with dual monitors. Complete software suite installed.</p>
+                                    <div class="d-flex flex-wrap mt-3">
+                                        ${station.software.map(soft => `<span class="badge bg-secondary me-2 mb-2">${soft}</span>`).join('')}
+                                    </div>
+                                    <p class="mt-3 mb-2"><small>Location: Floor 1, Media Lab</small></p>
+                                    
+                                    <h6 class="mt-4 mb-2">Available Time Slots:</h6>
+                                    <div class="d-flex flex-wrap">
+                                        <span class="time-slot ${station.available ? 'available' : 'booked'}">8:00 AM - 10:00 AM</span>
+                                        <span class="time-slot ${station.available ? 'available' : 'booked'}">10:00 AM - 12:00 PM</span>
+                                        <span class="time-slot ${station.available ? 'available' : 'booked'}">12:00 PM - 2:00 PM</span>
+                                        <span class="time-slot ${station.available ? 'available' : 'booked'}">2:00 PM - 4:00 PM</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent">
+                                    <button class="btn btn-primary w-100">Reserve Station</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        
+            // Event listener for software selection
+            document.getElementById('softwareSelect').addEventListener('change', (e) => {
+                const selectedSoftware = e.target.value;
+                const computerSpacesContainer = document.getElementById('computerSpaces');
+                computerSpacesContainer.innerHTML = '';
+        
+                const stations = floorDetails[1].computerStations; // Change the floor index as needed
+                stations.forEach(station => {
+                    if (selectedSoftware === 'All Software' || station.software.includes(selectedSoftware)) {
+                computerSpacesContainer.innerHTML += `
+                    <div class="col-md-6">
+                        <div class="card space-card ${station.available ? 'available' : 'unavailable'} h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title">${station.title}</h5>
+                                        <span class="badge ${station.available ? 'bg-success' : 'bg-danger'} mb-2">${station.available ? 'Available' : 'Unavailable'}</span>
+                                    </div>
+                                    <img src="/api/placeholder/100/70" alt="Computer station photo" class="rounded">
+                                </div>
+                                <p class="card-text">High-performance workstation with dual monitors. Complete software suite installed.</p>
+                                <div class="d-flex flex-wrap mt-3">
+                                    ${station.software.map(soft => `<span class="badge bg-secondary me-2 mb-2">${soft}</span>`).join('')}
+                                </div>
+                                <p class="mt-3 mb-2"><small>Location: Floor 1, Media Lab</small></p>
+                                
+                                <h6 class="mt-4 mb-2">Available Time Slots:</h6>
+                                <div class="d-flex flex-wrap">
+                                    <span class="time-slot ${station.available ? 'available' : 'booked'}">8:00 AM - 10:00 AM</span>
+                                    <span class="time-slot ${station.available ? 'available' : 'booked'}">10:00 AM - 12:00 PM</span>
+                                    <span class="time-slot ${station.available ? 'available' : 'booked'}">12:00 PM - 2:00 PM</span>
+                                    <span class="time-slot ${station.available ? 'available' : 'booked'}">2:00 PM - 4:00 PM</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <button class="btn btn-primary w-100">Reserve Station</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    });
+
+    // Event listener for floor selection
+    document.getElementById('floorSelect').addEventListener('change', (e) => {
+        const floor = parseInt(e.target.value);
+        populateIndividualSpaces(floor);
+        populateGroupSpaces(floor);
+        populateComputerSpaces(); // Populate computer spaces for the selected floor
+    });
+
+    // Event listener for capacity selection in group study rooms
+    document.getElementById('capacitySelect').addEventListener('change', (e) => {
+        const selectedCapacity = e.target.value;
+        const floor = parseInt(document.getElementById('floorSelect').value);
+        const groupSpacesContainer = document.getElementById('groupSpaces');
+        groupSpacesContainer.innerHTML = '';
+
+        const spaces = floorDetails[floor].groupSpaces;
+        spaces.forEach(space => {
+            if (selectedCapacity === 'Any Size' || (selectedCapacity === '2-4 People' && space.capacity <= 4) || 
+                (selectedCapacity === '5-8 People' && space.capacity <= 8) || 
+                (selectedCapacity === '9+ People' && space.capacity >= 9)) {
+                groupSpacesContainer.innerHTML += `
+                    <div class="col-md-6">
+                        <div class="card space-card ${space.status === 'Available' ? 'available' : 'limited'} h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title">${space.title}</h5>
+                                        <span class="badge ${space.status === 'Available' ? 'bg-success' : 'bg-warning'} mb-2">${space.status}</span>
+                                    </div>
+                                    <img src="/api/placeholder/100/70" alt="Room photo" class="rounded">
+                                </div>
+                                <p class="card-text">Location: ${space.location}</p>
+                                <p class="card-text">Capacity: ${space.capacity} people</p>
+                                <button class="btn btn-primary w-100 mt-3" onclick="selectGroupSpace('${space.id}')">Reserve Room</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    });
+
+    // Initial population of individual spaces for the first floor
+    populateIndividualSpaces(1);
+    populateGroupSpaces(1);
+    populateComputerSpaces(); // Populate computer spaces for the initial floor
+</script>
+</body>
+</html>

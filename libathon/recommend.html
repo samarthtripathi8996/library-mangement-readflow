@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Recommendations - Campus Library</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        footer {
+    background-color: #212529; /* Dark but not pitch black */
+    color: #f8f9fa; /* Slightly off-white for softer contrast */
+    padding: 50px 0;
+}
+
+footer .container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+footer .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+footer .col-md-4,
+footer .col-md-3,
+footer .col-md-2 {
+    flex: 1; /* Equal width for better alignment */
+    min-width: 250px; /* Prevents squeezing on smaller screens */
+}
+
+footer h5 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #ffcc00; /* Gold accent for visibility */
+}
+
+footer ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+footer ul li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+footer ul li a {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+footer ul li a:hover {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.2);
+    margin: 30px 0;
+}
+
+footer .text-center {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Campus Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="digital.html">Digital Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="account.html">My Account</a></li>
+                </ul>
+                <form class="d-flex">
+                    <a href="search.html" class="btn btn-outline-light">Search</a>
+                </form>
+                <div class="ms-3">
+                    <h6 style="color: whitesmoke; letter-spacing: 1px; margin-top: 5px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">Welcome Niraj</h6>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="py-5 bg-light resource-section">
+        <div class="container">
+            <h1 class="text-center mb-4 text-white">Your Resource Recommendations</h1>
+            <p class="text-center lead mb-5 text-white">Personalized suggestions based on your courses, interests, and reading history</p>
+        </div>
+    </section>
+    
+    <style>
+    .resource-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                    url('./images/res.jpeg') no-repeat center center/cover;
+        color: white;
+        height: 250px;
+    }
+    </style>
+
+    <!-- Course-Based Recommendations -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="mb-4">Based on Your Courses</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/ai.jpeg" class="card-img-top" alt="Machine Learning Fundamentals">
+                        <div class="card-body">
+                            <h5 class="card-title">Machine Learning Fundamentals</h5>
+                            <p class="card-text">For CS401: Intro to Machine Learning</p>
+                            <span class="badge bg-success">Available</span>
+                            <p class="mt-2"><small class="text-muted">3 copies available</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Place Hold</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/dsa.jpeg" class="card-img-top" alt="Neural Networks">
+                        <div class="card-body">
+                            <h5 class="card-title">Neural Networks: A Comprehensive Guide</h5>
+                            <p class="card-text">For CS402: Deep Learning</p>
+                            <span class="badge bg-warning text-dark">Limited</span>
+                            <p class="mt-2"><small class="text-muted">1 copy available</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Place Hold</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/psy.jpeg" class="card-img-top" alt="Database Systems">
+                        <div class="card-body">
+                            <h5 class="card-title">Modern Database Systems</h5>
+                            <p class="card-text">For CS403: Database Management</p>
+                            <span class="badge bg-success">Available</span>
+                            <p class="mt-2"><small class="text-muted">4 copies available</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Place Hold</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100">
+                        <img src="./images/ecoo.jpeg" class="card-img-top" alt="Research Methods">
+                        <div class="card-body">
+                            <h5 class="card-title">Research Methods in Computer Science</h5>
+                            <p class="card-text">For CS404: Research Methodology</p>
+                            <span class="badge bg-danger">On Hold</span>
+                            <p class="mt-2"><small class="text-muted">Available on Mar 15</small></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary">Join Waitlist</button>
+                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interest-Based Recommendations -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="mb-4">Based on Your Interests</h2>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Your Interest Areas</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-primary">Artificial Intelligence</span>
+                                <span class="badge bg-primary">Web Development</span>
+                                <span class="badge bg-primary">Data Science</span>
+                                <span class="badge bg-primary">Cybersecurity</span>
+                                <button class="btn btn-sm btn-outline-primary">Edit Interests</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Recommendation Settings</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="newArrivals" checked>
+                                <label class="form-check-label" for="newArrivals">
+                                    Include new arrivals
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="popularItems" checked>
+                                <label class="form-check-label" for="popularItems">
+                                    Include popular items
+                                </label>
+                            </div>
+                            <button class="btn btn-sm btn-primary">Update Preferences</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Recent Publications</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Advanced AI Techniques
+                                    <span class="badge bg-primary rounded-pill">New</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Web Security Handbook
+                                    <span class="badge bg-primary rounded-pill">New</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Data Mining Essentials
+                                    <span class="badge bg-primary rounded-pill">New</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Popular in Your Areas</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Python for Data Science
+                                    <span class="badge bg-warning rounded-pill">Popular</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Modern JavaScript
+                                    <span class="badge bg-warning rounded-pill">Popular</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Ethical Hacking
+                                    <span class="badge bg-warning rounded-pill">Popular</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Trending Topics</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Cloud Computing
+                                    <span class="badge bg-info rounded-pill">Trending</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Blockchain Development
+                                    <span class="badge bg-info rounded-pill">Trending</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    IoT Applications
+                                    <span class="badge bg-info rounded-pill">Trending</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Campus Library</h5>
+                    <p>Your central hub for academic resources, research assistance, and collaborative learning spaces.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>Hours</h5>
+                    <ul class="list-unstyled">
+                        <li>Mon-Thu: 8am-10pm</li>
+                        <li>Fri: 8am-7pm</li>
+                        <li>Sat: 10am-6pm</li>
+                        <li>Sun: 12pm-8pm</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li>Email: library@campus.edu</li>
+                        <li>Phone: (555) 123-4567</li>
+                        <li>Location: Main Campus, Building 42</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 Campus Library System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Main data structures
+let userPreferences = {
+    interests: ['Artificial Intelligence', 'Web Development', 'Data Science', 'Cybersecurity'],
+    settings: {
+        includeNewArrivals: true,
+        includePopularItems: true
+    }
+};
+
+let recommendedBooks = [
+    {
+        id: 1,
+        title: "Machine Learning Fundamentals",
+        course: "CS401: Intro to Machine Learning",
+        availability: "Available",
+        copies: 3,
+        image: "/api/placeholder/400/320"
+    },
+    // Add more books as needed
+];
+
+// DOM Ready Handler
+document.addEventListener('DOMContentLoaded', function() {
+    initializePreferences();
+    setupEventListeners();
+    updateRecommendations();
+});
+
+// Initialize user preferences
+function initializePreferences() {
+    // Set checkboxes based on saved preferences
+    document.getElementById('newArrivals').checked = userPreferences.settings.includeNewArrivals;
+    document.getElementById('popularItems').checked = userPreferences.settings.includePopularItems;
+    
+    // Display current interests
+    renderInterestBadges();
+}
+
+// Setup Event Listeners
+function setupEventListeners() {
+    // Update preferences button
+    document.querySelector('button[onclick="updatePreferences()"]')?.addEventListener('click', updatePreferences);
+
+    // Edit interests button
+    document.querySelector('button.btn-outline-primary')?.addEventListener('click', showInterestModal);
+
+    // Place hold buttons
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        if (button.textContent.includes('Place Hold')) {
+            button.addEventListener('click', handlePlaceHold);
+        }
+    });
+
+    // View details buttons
+    document.querySelectorAll('.btn-outline-secondary').forEach(button => {
+        if (button.textContent.includes('View Details')) {
+            button.addEventListener('click', handleViewDetails);
+        }
+    });
+
+    // Settings checkboxes
+    document.getElementById('newArrivals')?.addEventListener('change', handleSettingChange);
+    document.getElementById('popularItems')?.addEventListener('change', handleSettingChange);
+}
+
+// Render interest badges
+function renderInterestBadges() {
+    const container = document.querySelector('.d-flex.flex-wrap.gap-2');
+    if (!container) return;
+
+    container.innerHTML = '';
+    userPreferences.interests.forEach(interest => {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-primary';
+        badge.textContent = interest;
+        badge.addEventListener('click', () => removeInterest(interest));
+        container.appendChild(badge);
+    });
+
+    // Add edit button
+    const editButton = document.createElement('button');
+    editButton.className = 'btn btn-sm btn-outline-primary';
+    editButton.textContent = 'Edit Interests';
+    editButton.addEventListener('click', showInterestModal);
+    container.appendChild(editButton);
+}
+
+// Handle placing holds
+function handlePlaceHold(event) {
+    const card = event.target.closest('.card');
+    const title = card.querySelector('.card-title').textContent;
+    const availability = card.querySelector('.badge').textContent;
+
+    if (availability === 'Available') {
+        showToast(`Hold placed for: ${title}`);
+        event.target.textContent = 'Processing...';
+        
+        // Simulate API call
+        setTimeout(() => {
+            event.target.textContent = 'Hold Placed';
+            event.target.disabled = true;
+            card.querySelector('.badge').className = 'badge bg-warning text-dark';
+            card.querySelector('.badge').textContent = 'On Hold';
+        }, 1500);
+    }
+}
+
+// Handle viewing details
+function handleViewDetails(event) {
+    const card = event.target.closest('.card');
+    const title = card.querySelector('.card-title').textContent;
+    const course = card.querySelector('.card-text')?.textContent;
+    
+    showBookDetailsModal(title, course);
+}
+
+// Show book details modal
+function showBookDetailsModal(title, course) {
+    const modalHtml = `
+        <div class="modal fade" id="bookDetailsModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">${title}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Course:</strong> ${course}</p>
+                        <p><strong>Description:</strong> Detailed information about the book...</p>
+                        <p><strong>ISBN:</strong> 978-0-XXXX-XXXX-X</p>
+                        <p><strong>Publisher:</strong> Academic Press</p>
+                        <p><strong>Publication Year:</strong> 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Add modal to document
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('bookDetailsModal'));
+    modal.show();
+
+    // Clean up modal after hiding
+    document.getElementById('bookDetailsModal').addEventListener('hidden.bs.modal', function() {
+        this.remove();
+    });
+}
+
+// Handle setting changes
+function handleSettingChange(event) {
+    const setting = event.target.id;
+    userPreferences.settings[setting] = event.target.checked;
+    updateRecommendations();
+}
+
+// Update recommendations based on preferences
+function updateRecommendations() {
+    const recommendations = filterRecommendations();
+    renderRecommendations(recommendations);
+}
+
+// Filter recommendations based on user preferences
+function filterRecommendations() {
+    let filtered = [...recommendedBooks];
+
+    if (!userPreferences.settings.includeNewArrivals) {
+        filtered = filtered.filter(book => !book.isNew);
+    }
+
+    if (!userPreferences.settings.includePopularItems) {
+        filtered = filtered.filter(book => !book.isPopular);
+    }
+
+    return filtered;
+}
+
+// Show interest management modal
+function showInterestModal() {
+    const modalHtml = `
+        <div class="modal fade" id="interestModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Manage Your Interests</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Add New Interest</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="newInterest">
+                                <button class="btn btn-primary" onclick="addInterest()">Add</button>
+                            </div>
+                        </div>
+                        <div id="currentInterests">
+                            ${userPreferences.interests.map(interest => 
+                                `<div class="badge bg-primary me-2 mb-2">${interest} 
+                                    <button type="button" class="btn-close btn-close-white" 
+                                     onclick="removeInterest('${interest}')"></button>
+                                </div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    const modal = new bootstrap.Modal(document.getElementById('interestModal'));
+    modal.show();
+
+    document.getElementById('interestModal').addEventListener('hidden.bs.modal', function() {
+        this.remove();
+    });
+}
+
+// Add new interest
+function addInterest() {
+    const input = document.getElementById('newInterest');
+    const interest = input.value.trim();
+
+    if (interest && !userPreferences.interests.includes(interest)) {
+        userPreferences.interests.push(interest);
+        renderInterestBadges();
+        input.value = '';
+        showToast(`Added interest: ${interest}`);
+    }
+}
+
+// Remove interest
+function removeInterest(interest) {
+    userPreferences.interests = userPreferences.interests.filter(i => i !== interest);
+    renderInterestBadges();
+    showToast(`Removed interest: ${interest}`);
+}
+
+// Show toast notification
+function showToast(message) {
+    const toastHtml = `
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div class="toast" role="alert">
+                <div class="toast-body">
+                    ${message}
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', toastHtml);
+    const toastElement = document.querySelector('.toast');
+    const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
+    toast.show();
+
+    toastElement.addEventListener('hidden.bs.toast', function() {
+        this.closest('.toast-container').remove();
+    });
+}
+
+// Update user preferences
+function updatePreferences() {
+    const newArrivals = document.getElementById('newArrivals').checked;
+    const popularItems = document.getElementById('popularItems').checked;
+
+    userPreferences.settings.includeNewArrivals = newArrivals;
+    userPreferences.settings.includePopularItems = popularItems;
+
+    updateRecommendations();
+    showToast('Preferences updated successfully');
+}
+
+// Add to reading list
+function addToReadingList(bookId) {
+    showToast('Added to reading list');
+    // Implement reading list functionality
+}
+
+// Export functions for external use
+window.addInterest = addInterest;
+window.removeInterest = removeInterest;
+window.updatePreferences = updatePreferences;
+window.addToReadingList = addToReadingList;
+    </script>
+</body>
+</html>

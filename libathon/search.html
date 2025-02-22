@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Database</title>
+    <link rel="stylesheet" href="search.css">
+</head>
+
+<body>
+
+
+    <header>
+        <h1 id="body_heading" >Book Database</h1>
+        
+            <ul>
+                <!-- <li id="header_icon"><a href="search.html">Refresh</a></li>
+                <li id="header_icon"><a href="index.html">Home</a></li> -->
+                <li class="header_icon"><a href="search.html">Refresh</a></li>
+                <li class="header_icon"><a href="index.html">Home</a></li>
+ 
+
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search for books...">
+                    <button onclick="searchBooks()">Search</button>
+                    <a href="ai.html"><button onclick="searchBooks()">ChatBot</button></a>
+                    
+                </div>
+            </ul>
+        
+    </header>
+
+    <section class="trending">
+        <h2 id="body_heading">Search Results</h2>
+        <div class="book-list" id="search-results"></div>
+    </section>
+
+    <section class="popular-books">
+        <h2 id="body_heading">Popular Books</h2>
+        <div class="book-list" id="popular-books"></div>
+    </section>
+
+    <section class="highly-rated-books">
+        <h2 id="body_heading">Highly Rated Books</h2>
+        <div class="book-list" id="highly-rated-books"></div>
+    </section>
+
+    <section class="contact-form">
+        <h2>Contact Us</h2>
+        <p>library@campus.edu</p>
+    </section>
+
+    <script src="api.js"></script>
+
+
+    
+  <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("popular-books").addEventListener("click", function (event) {
+                const bookCard = event.target.closest(".book");
+                if (bookCard) {
+                    const bookId = bookCard.dataset.bookId;
+                    if (bookId) {
+                        window.location.href = `movie-detail.html?id=${bookId}`;
+                    }
+                }
+            });
+
+            document.getElementById("highly-rated-books").addEventListener("click", function (event) {
+                const bookCard = event.target.closest(".book");
+                if (bookCard) {
+                    const bookId = bookCard.dataset.bookId;
+                    if (bookId) {
+                        window.location.href = `movie-detail.html?id=${bookId}`;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
